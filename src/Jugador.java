@@ -43,8 +43,9 @@ public class Jugador {
     }
 
     //Metodo que incrementa en 1 el registro de la cantidad de adversarios
-    public void incrementarAdversarios() {
+    public void preparar() {
         adversarios++;
+        puntaje = 0;
     }
 
     //Metodo que registra una victoria del jugador
