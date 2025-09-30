@@ -311,17 +311,5 @@ public class Keyboard
         return value;
     }
 
-    //-----------------------------------------------------------------
-    //  Metodo agregado por Jimer Orlando Diaz Murillo.
-    //  Este metodo pausa la ejecucion hasta que se presione la tecla Enter.
-    //-----------------------------------------------------------------
-    public static void esperarEnter(){
-        try {
-            in.readLine();
-        } catch (IOException e) {
-            error("Ocurrio un error al esperar Enter");
-        }
-    }
-
 } // end class
 

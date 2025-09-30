@@ -1,7 +1,11 @@
+//Nombre del programa: Jugador.java
+//Clase para la creacion de la instancia correspondiente al jugador, necesaria para llevar sus registros y proceso en TicTacToe.
+//Autor: Jimer Orlando Díaz Murillo
+//Fecha: 29 Septiembre 2025
 public class Jugador {
 
     //Atributos
-    private String nombre;
+    private final String nombre;
     private int adversarios, totalPartidas, totalVictorias, totalDerrotas, totalEmpates, puntaje, ficha;
 
     //Constructor
@@ -16,6 +20,7 @@ public class Jugador {
         puntaje = 0;
     }
 
+    //Metodos get
     public String getNombre() {
         return nombre;
     }
@@ -24,6 +29,11 @@ public class Jugador {
         return puntaje;
     }
 
+    public int getFicha() {
+        return ficha;
+    }
+
+    //Metodos set
     public void setFicha(int ficha) {
         this.ficha = ficha;
     }
@@ -32,28 +42,32 @@ public class Jugador {
         this.puntaje = puntaje;
     }
 
-    public boolean jugar(Tablero tablero, int posicion){
-
-        return tablero.actualizar(ficha,posicion);
+    //Metodo que incrementa en 1 el registro de la cantidad de adversarios
+    public void incrementarAdversarios() {
+        adversarios++;
     }
 
+    //Metodo que registra una victoria del jugador
     public void ganar(){
         puntaje += 5;
         totalPartidas++;
         totalVictorias++;
     }
 
+    //Metodo que registra una derrota del jugador
     public void perder(){
         puntaje -= 3;
         totalPartidas++;
         totalDerrotas++;
     }
 
+    //Metodo que registra un empate del jugador
     public void empatar(){
         totalPartidas++;
         totalEmpates++;
     }
 
+    //Metodo toString con instrucciones necesarias para imprimir los datos del jugador
     @Override
     public String toString(){
 

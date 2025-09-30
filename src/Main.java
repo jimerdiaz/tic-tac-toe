@@ -1,96 +1,124 @@
+//Nombre del programa: Main.java
+//Clase Main para jugar TicTacToe permitiendo el ingreso de un nuevo jugador para reemplazar al jugador que pierde por puntuacion e iniciar una nueva serie de partidas.
+//Autor: Jimer Orlando Díaz Murillo
+//Fecha: 29 Septiembre 2025
 import java.util.ArrayList;
 
 public class Main {
+
+    //Metodo para capturar por teclado un valor int comprendiendo un rango de numeros determinado.
+    public static int asignarInt(int inicioRango, int finRango){
+
+        int numero;
+
+        do{
+
+            numero = Keyboard.readInt();
+
+            if(numero < inicioRango || numero > finRango)
+                System.out.println("Debe ser un numero en el rango de " + inicioRango + " a " + finRango + ". Por favor ingrese otro numero:");
+
+        }while(numero < inicioRango || numero > finRango);
+
+        return numero;
+
+    }
+
+    //Metodo main
     public static void main(String[] args) {
 
-        Jugador jugadorActual,jugador1,jugador2;
-        int posicion;
-        boolean estadoSerie = false, juego = false;
-        String nombre;
-        int ficha, continuar;
+        //Variables boolean para controlar el termino de las series y del juego
+        boolean continuarSerie = true, continuarJuego = true;
+        //Variables para control de jugadores y turnos
+        Jugador jugadorActual,jugadorEnEspera,auxiliarCambio;
+        //Lista para almacenar registro de jugadores
         ArrayList<Jugador> jugadores = new ArrayList<>();
 
         System.out.println("Juego del Gato");
         Tablero tablero = new Tablero();
 
-        System.out.println("Ingrese el nombre para el Jugador:");
-        nombre = Keyboard.readString();
-
-        jugadorActual = new Jugador(nombre);
+        System.out.println("Ingrese el nombre del Jugador que ira primero:");
+        jugadorActual = new Jugador(Keyboard.readString());
         jugadores.add(jugadorActual);
 
-        do{
+        do{//Ciclo del juego
 
-            jugador1 = jugadorActual;
+            System.out.println("Ingrese el nombre del Jugador que ira segundo:");
+            jugadorEnEspera = new Jugador(Keyboard.readString());
+            jugadores.add(jugadorEnEspera);
 
-            System.out.println("Ingrese el nombre para el Jugador:");
-            nombre = Keyboard.readString();
+            //Asignacion de fichas
+            System.out.println(jugadorActual.getNombre()+" ingrese el numero correspondiente a la ficha que desea usar (1 o 2):\n1: X     X   2: 0  0  0\n      X         0     0\n   X     X      0  0  0");
+            int ficha = asignarInt(1, 2);
 
-            jugador2 = new Jugador(nombre);
-            jugadores.add(jugador2);
+            jugadorActual.setFicha(ficha);
+            //La otra ficha se asigna al otro jugador
+            jugadorEnEspera.setFicha(ficha == 1? 2:1);
 
-            System.out.println("Ingrese el numero correspondiente a la ficha que desea usar (1 o 2):\n1: X     X   2: 0  0  0\n      X         0     0\n   X     X      0  0  0");
-            ficha = Keyboard.readInt();
-
-            jugador1.setFicha(ficha);
-            jugador2.setFicha(ficha == 1? 2:1);
-
+            //Ciclo de la serie
             do{
 
+                //Ciclo de las partidas
                 do{
 
+                    //Se imprime tablero en curso
                     System.out.println(tablero);
 
                     do {
-                        System.out.println("Seleccione una celda 1-9");
-                        posicion = Keyboard.readInt();
-                    }while (!jugadorActual.jugar(tablero,posicion));
+                        System.out.println(jugadorActual.getNombre()+" seleccione una celda 1-9");
+                    }while (!tablero.registrarMovimiento(jugadorActual.getFicha(),asignarInt(1, 9)-1));
 
+                    //Se cambia de turno sí el tablero sigue en juego
                     if(tablero.getEstadoTablero() == 0){
-                        jugadorActual = jugadorActual==jugador1? jugador2:jugador1;
+                        auxiliarCambio = jugadorActual;
+                        jugadorActual = jugadorEnEspera;
+                        jugadorEnEspera = auxiliarCambio;
                     }
 
-                }while (tablero.getEstadoTablero()==0);
+                }while (tablero.getEstadoTablero()==0);//Continua mientras el tablero siga en juego
 
-                System.out.println(tablero);
+                System.out.println(tablero);//Se imprime en pantalla el resultado de la partida
 
-                if(tablero.getEstadoTablero() == 1){
+                if(tablero.getEstadoTablero() == 1)//Se establece el jugador que gana y el que pierde
+                {
                     jugadorActual.ganar();
-                    if (jugadorActual == jugador1) {
-                        jugador2.perder();
-                    } else {
-                        jugador1.perder();
-                    }
+                    jugadorEnEspera.perder();
 
-                    if (jugadorActual.getPuntaje()>= 10){
-                        estadoSerie = true;
+                    if (jugadorActual.getPuntaje()>= 10)//Se valida si el ganador ya consiguio los puntos necesarios para terminar la serie
+                    {
+                        continuarSerie = false;
                     }
-                }else{
+                }else//Se establece un empate
+                {
                     System.out.println("Empate!! Se reinicia la partida");
-                    jugador1.empatar();
-                    jugador2.empatar();
+                    jugadorActual.empatar();
+                    jugadorEnEspera.empatar();
                 }
 
                 tablero.reiniciarTablero();
 
-                System.out.println("Nombre: "+jugador1.getNombre() + ", Puntaje: "+jugador1.getPuntaje());
-                System.out.println("Nombre: "+jugador2.getNombre() + ", Puntaje: "+jugador2.getPuntaje());
+                //Se imprime puntaje al momento
+                System.out.println("Puntaje actual: ");
+                System.out.println(jugadorActual.getNombre() + " Puntaje: "+jugadorActual.getPuntaje());
+                System.out.println(jugadorEnEspera.getNombre() + " Puntaje: "+jugadorEnEspera.getPuntaje());
 
-            }while(!estadoSerie);
+            }while(continuarSerie);//Continua mientras no se consigan los puntos necesarios para ganar la serie por parte de alguno de los jugadores
 
             System.out.println("El ganador de la serie es: "+jugadorActual.getNombre());
             System.out.println("¿Continuar con el juego? 1: Si  2: No");
-            continuar = Keyboard.readInt();
-            if (continuar == 2) {
-                juego = true;
+            if (asignarInt(1, 2) == 2) {
+                continuarJuego = false;
             }else{
+                //Se prepara datos de jugador ganador para enfrentar al nuevo jugador
                 jugadorActual.setPuntaje(0);
-                estadoSerie = false;
+                jugadorActual.incrementarAdversarios();
+                //Se inicia nueva serie
+                continuarSerie = true;
             }
 
+        }while(continuarJuego);//Continua mientras se desee seguir jugando enfrentando nuevos jugadores
 
-        }while(!juego);
-
+        //Se imprime historial
         System.out.println("Historial Jugadores");
 
         for (Jugador jugador : jugadores){
