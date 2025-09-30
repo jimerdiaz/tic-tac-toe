@@ -1,7 +1,7 @@
 //Nombre del programa: Tablero.java
 //Clase para la creacion de la instancia correspondiente al tablero, necesario para el desarrollo de las partidas del juego TicTacToe.
 //Autor: Jimer Orlando Díaz Murillo
-//Fecha: 25 Septiembre 2025
+//Fecha: 30 Septiembre 2025
 import java.util.Arrays;
 
 public class Tablero {
@@ -21,15 +21,21 @@ public class Tablero {
     private final String[][] FICHAS = {
             //Celda sin ficha
             {
-                "       ","       "
+                "       ",
+                "       ",
+                "       "
             },
             //Ficha 1
             {
-                "X     X","   X   "
+                "X     X",
+                "   X   ",
+                "X     X"
             },
             //Ficha 2
             {
-                "0  0  0","0     0"
+                "0  0  0",
+                "0     0",
+                "0  0  0"
             }
 
     };
@@ -103,25 +109,25 @@ public class Tablero {
 
         StringBuilder tableroVisual = new StringBuilder();
 
-        tableroVisual.append(contruirCeldas(TABLERO[0],TABLERO[1],TABLERO[2]));
-        tableroVisual.append("*  *  *  *  *  *  *  *  *  *  *\n");
-        tableroVisual.append(contruirCeldas(TABLERO[3],TABLERO[4],TABLERO[5]));
-        tableroVisual.append("*  *  *  *  *  *  *  *  *  *  *\n");
-        tableroVisual.append(contruirCeldas(TABLERO[6],TABLERO[7],TABLERO[8]));
+        for (int i = 0; i < 9; i+=3) {
+
+            tableroVisual.append(construirFila(TABLERO[i],TABLERO[i+1],TABLERO[i+2]));
+
+            if(i < 6) tableroVisual.append("*  *  *  *  *  *  *  *  *  *  *\n");
+        }
 
         return tableroVisual.toString();
-
     }
 
-    //Metodo para construir las filas de las fichas
-    private String contruirCeldas(int izquierda, int medio, int derecha){
+    //Metodo para construir las filas de celdas
+    private String construirFila(int izquierda, int medio, int derecha){
 
-        StringBuilder celdas = new StringBuilder();
+        StringBuilder fila = new StringBuilder();
 
-        celdas.append(FICHAS[izquierda][0]).append("  *  ").append(FICHAS[medio][0]).append("  *  ").append(FICHAS[derecha][0]).append("\n");
-        celdas.append(FICHAS[izquierda][1]).append("  *  ").append(FICHAS[medio][1]).append("  *  ").append(FICHAS[derecha][1]).append("\n");
-        celdas.append(FICHAS[izquierda][0]).append("  *  ").append(FICHAS[medio][0]).append("  *  ").append(FICHAS[derecha][0]).append("\n");
+        for (int i = 0; i < 3; i++) {
+            fila.append(FICHAS[izquierda][i]).append("  *  ").append(FICHAS[medio][i]).append("  *  ").append(FICHAS[derecha][i]).append("\n");
+        }
 
-        return celdas.toString();
+        return fila.toString();
     }
 }
