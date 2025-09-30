@@ -1,7 +1,7 @@
 //Nombre del programa: Jugador.java
 //Clase para la creacion de la instancia correspondiente al jugador, necesaria para llevar sus registros y proceso en TicTacToe.
 //Autor: Jimer Orlando Díaz Murillo
-//Fecha: 29 Septiembre 2025
+//Fecha: 30 Septiembre 2025
 public class Jugador {
 
     //Atributos
