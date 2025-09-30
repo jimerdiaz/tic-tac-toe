@@ -38,10 +38,6 @@ public class Jugador {
         this.ficha = ficha;
     }
 
-    public void setPuntaje(int puntaje) {
-        this.puntaje = puntaje;
-    }
-
     //Metodo que incrementa en 1 el registro de la cantidad de adversarios
     public void preparar() {
         adversarios++;
