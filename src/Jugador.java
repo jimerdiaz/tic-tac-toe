@@ -20,13 +20,38 @@ public class Jugador {
         return nombre;
     }
 
+    public int getPuntaje() {
+        return puntaje;
+    }
+
     public void setFicha(int ficha) {
         this.ficha = ficha;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
     }
 
     public boolean jugar(Tablero tablero, int posicion){
 
         return tablero.actualizar(ficha,posicion);
+    }
+
+    public void ganar(){
+        puntaje += 5;
+        totalPartidas++;
+        totalVictorias++;
+    }
+
+    public void perder(){
+        puntaje -= 3;
+        totalPartidas++;
+        totalDerrotas++;
+    }
+
+    public void empatar(){
+        totalPartidas++;
+        totalEmpates++;
     }
 
     @Override

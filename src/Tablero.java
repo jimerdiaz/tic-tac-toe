@@ -4,8 +4,7 @@ public class Tablero {
 
     //Atributos
     private final int[] TABLERO = new int[9];
-    private int estadoTablero;
-    private int fichaGanadora;
+    private int estadoTablero, movimientos;
     private final int[][] REVISAR_LINEA = {
             {0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}
     };
@@ -21,7 +20,6 @@ public class Tablero {
             }
 
     };
-    public int movimientos;
 
     //Constructor
     public Tablero(){
@@ -30,6 +28,10 @@ public class Tablero {
         Arrays.fill(TABLERO,0);
         estadoTablero = 0;
         movimientos = 0;
+    }
+
+    public int getEstadoTablero() {
+        return estadoTablero;
     }
 
     //Metodo que actualiza el tablero
@@ -47,7 +49,6 @@ public class Tablero {
 
                     if(TABLERO[linea[0]] == ficha && TABLERO[linea[1]] == ficha && TABLERO[linea[2]] == ficha){
                         estadoTablero = 1;
-                        fichaGanadora = ficha;
                         return true;
                     }
 
@@ -100,9 +101,5 @@ public class Tablero {
         celdas.append(FICHAS[izquierda][0]).append("  *  ").append(FICHAS[medio][0]).append("  *  ").append(FICHAS[derecha][0]).append("\n");
 
         return celdas.toString();
-    }
-
-    public int getEstadoTablero() {
-        return estadoTablero;
     }
 }
