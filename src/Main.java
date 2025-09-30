@@ -104,16 +104,16 @@ public class Main {
 
             }while(continuarSerie);//Continua mientras no se consigan los puntos necesarios para ganar la serie por parte de alguno de los jugadores
 
-            System.out.println("El ganador de la serie es: "+jugadorActual.getNombre());
+            System.out.println(jugadorActual.getNombre()+ " ha ganado la serie.");
             System.out.println("¿Continuar con el juego? 1: Si  2: No");
             if (asignarInt(1, 2) == 2) {
                 continuarJuego = false;
             }else{
                 //Se prepara datos de jugador ganador para enfrentar al nuevo jugador
-                jugadorActual.setPuntaje(0);
-                jugadorActual.incrementarAdversarios();
+                jugadorActual.preparar();
                 //Se inicia nueva serie
                 continuarSerie = true;
+                System.out.println(jugadorActual.getNombre()+" continua en el juego.");
             }
 
         }while(continuarJuego);//Continua mientras se desee seguir jugando enfrentando nuevos jugadores
