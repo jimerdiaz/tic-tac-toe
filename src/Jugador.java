@@ -38,7 +38,7 @@ public class Jugador {
         this.ficha = ficha;
     }
 
-    //Metodo que incrementa en 1 el registro de la cantidad de adversarios
+    //Metodo que prepara al jugador para enfrentar a un nuevo adversario
     public void preparar() {
         adversarios++;
         puntaje = 0;
