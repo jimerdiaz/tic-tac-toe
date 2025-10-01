@@ -24,6 +24,24 @@ public class Main {
 
     }
 
+    //Metodo para capturar por teclado un string.
+    public static String asignarString(){
+
+        String cadena;
+
+        do{
+
+            cadena = Keyboard.readString();
+
+            if(cadena.trim().isEmpty())
+                System.out.println("Porfavor no ingrese solamente espacios en blanco.");
+
+        }while(cadena.trim().isEmpty());
+
+        return cadena;
+
+    }
+
     //Metodo main
     public static void main(String[] args) {
 
@@ -38,13 +56,13 @@ public class Main {
         Tablero tablero = new Tablero();
 
         System.out.println("Ingrese el nombre del Jugador que ira primero:");
-        jugadorActual = new Jugador(Keyboard.readString());
+        jugadorActual = new Jugador(asignarString());
         jugadores.add(jugadorActual);
 
         do{//Ciclo del juego
 
             System.out.println("Ingrese el nombre del Jugador que ira segundo:");
-            jugadorEnEspera = new Jugador(Keyboard.readString());
+            jugadorEnEspera = new Jugador(asignarString());
             jugadores.add(jugadorEnEspera);
 
             //Asignacion de fichas
@@ -81,6 +99,7 @@ public class Main {
 
                 if(tablero.getEstadoTablero() == 1)//Se establece el jugador que gana y el que pierde
                 {
+                    System.out.println("¡¡"+jugadorActual.getNombre()+" gana la partida!!");
                     jugadorActual.ganar();
                     jugadorEnEspera.perder();
 
@@ -90,7 +109,7 @@ public class Main {
                     }
                 }else//Se establece un empate
                 {
-                    System.out.println("Empate!! Se reinicia la partida");
+                    System.out.println("¡¡Empate!! Se reinicia la partida");
                     jugadorActual.empatar();
                     jugadorEnEspera.empatar();
                 }
@@ -119,7 +138,7 @@ public class Main {
         }while(continuarJuego);//Continua mientras se desee seguir jugando enfrentando nuevos jugadores
 
         //Se imprime historial
-        System.out.println("Historial Jugadores");
+        System.out.println("\n¡¡Gracias por jugar!!\n\nHistorial Jugadores");
 
         for (Jugador jugador : jugadores){
             System.out.println(jugador);
