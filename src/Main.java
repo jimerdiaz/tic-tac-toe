@@ -2,7 +2,6 @@
 //Clase Main para jugar TicTacToe permitiendo el ingreso de un nuevo jugador para reemplazar al jugador que pierde por puntuacion e iniciar una nueva serie de partidas.
 //Autor: Jimer Orlando Díaz Murillo
 //Fecha: 30 Septiembre 2025
-import java.util.ArrayList;
 
 public class Main {
 
