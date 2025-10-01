@@ -114,7 +114,7 @@ public class Main {
                     jugadorEnEspera.empatar();
                 }
 
-                tablero.reiniciarTablero();
+                if(continuarSerie) tablero.reiniciarTablero();
 
                 //Se imprime puntaje al momento
                 System.out.println("Puntaje actual: ");
@@ -128,6 +128,7 @@ public class Main {
             if (asignarInt(1, 2) == 2) {
                 continuarJuego = false;
             }else{
+                tablero.reiniciarTablero();
                 //Se prepara datos de jugador ganador para enfrentar al nuevo jugador
                 jugadorActual.preparar();
                 //Se inicia nueva serie
