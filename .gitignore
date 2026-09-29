@@ -27,3 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Carpetas de configuración de IntelliJ IDEA
+.idea/
+
+# Archivos de módulo de IntelliJ
+*.iml
